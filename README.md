@@ -1,5 +1,13 @@
-![blackmamba-wider](https://github.com/Zyphra/BlackMamba/assets/10281105/02641d76-b4ca-4056-a7d1-2d2d2b08692e)
+# My notes
 
+### Working env
+AWS (g4dn.xlarge/Tesla T4)
+Pytorch=1.13.1, GCC=11.3.0, Cuda=11.7, Python=3.9.16
+
+### What tokenizer is used?
+Short answer: stick with original mamba's `EleutherAI/gpt-neox-20b` with extended padding tokens to run more efficiently for the underlying GPU GEMM kernels.
+
+See: https://github.com/Zyphra/BlackMamba/issues/6
 
 # BlackMamba
 
