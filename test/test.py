@@ -1,5 +1,8 @@
 import os
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
+import sys
+sys.path.insert(0, '.')
+sys.path.insert(0, '..')
 
 import torch
 from mamba_model import MambaModel
