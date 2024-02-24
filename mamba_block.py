@@ -14,25 +14,25 @@ import torch.nn.functional as F
 from torch import Tensor
 from einops import rearrange, repeat
 
-try:
-    from causal_conv1d import causal_conv1d_fn, causal_conv1d_update
-except ImportError:
-    causal_conv1d_fn, causal_conv1d_update = None, None
+#try:
+#    from causal_conv1d import causal_conv1d_fn, causal_conv1d_update
+#except ImportError:
+causal_conv1d_fn, causal_conv1d_update = None, None
 
-try:
-    from ops.selective_scan_interface import selective_scan_fn, mamba_inner_fn
-except ImportError:
-    selective_scan_fn, mamba_inner_fn = None, None
+#try:
+#    from ops.selective_scan_interface import selective_scan_fn, mamba_inner_fn
+#except ImportError:
+selective_scan_fn, mamba_inner_fn = None, None
 
-try:
-    from ops.triton.selective_state_update import selective_state_update
-except ImportError:
-    selective_state_update = None
+#try:
+#    from ops.triton.selective_state_update import selective_state_update
+#except ImportError:
+selective_state_update = None
 
-try:
-    from ops.triton.layernorm import RMSNorm, layer_norm_fn, rms_norm_fn
-except ImportError:
-    RMSNorm, layer_norm_fn, rms_norm_fn = None, None, None
+#try:
+#    from ops.triton.layernorm import RMSNorm, layer_norm_fn, rms_norm_fn
+#except ImportError:
+RMSNorm, layer_norm_fn, rms_norm_fn = nn.LayerNorm, None, None
 
 from mamba_layer import MambaLayer
 from mamba_config import MambaConfig
@@ -214,7 +214,7 @@ class MoEBlock(nn.Module):
 def create_block(config, layer_idx):
 
     if config.rms_norm:
-        norm_cls = partial(RMSNorm, eps=config.layernorm_epsilon)
+        norm_cls = partial(RMSNorm, eps=config.layernorm_epsilon, bias=False)
     else:
         norm_cls = partial(nn.LayerNorm if not config.rms_norm else RMSNorm, eps=config.layernorm_epsilon)
     

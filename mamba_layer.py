@@ -9,30 +9,30 @@ from torch import Tensor
 from einops import rearrange, repeat
 from mamba_config import MambaConfig
 
-try:
-    from causal_conv1d import causal_conv1d_fn, causal_conv1d_update
-except ImportError:
-    causal_conv1d_fn = None
-    causal_conv1d_update = None
+#try:
+#    from causal_conv1d import causal_conv1d_fn, causal_conv1d_update
+#except ImportError:
+causal_conv1d_fn = None
+causal_conv1d_update = None
     
 
-from ops.selective_scan_interface import selective_scan_fn, mamba_inner_fn, SELECTIVE_SCAN_CUDA_IMPORT_FAILED
-
-if SELECTIVE_SCAN_CUDA_IMPORT_FAILED:
-    from ops.selective_scan_interface import selective_scan_ref
-    selective_scan_fn  = selective_scan_ref
-    mamba_inner_fn = None
+#from ops.selective_scan_interface import selective_scan_fn, mamba_inner_fn, SELECTIVE_SCAN_CUDA_IMPORT_FAILED
+#
+#if SELECTIVE_SCAN_CUDA_IMPORT_FAILED:
+from ops.selective_scan_interface import selective_scan_ref
+selective_scan_fn  = selective_scan_ref
+mamba_inner_fn = None
     
 
-try:
-    from ops.triton.selective_state_update import selective_state_update
-except ImportError:
-    selective_state_update = None
+#try:
+#    from ops.triton.selective_state_update import selective_state_update
+#except ImportError:
+selective_state_update = None
 
-try:
-    from ops.triton.layernorm import RMSNorm, layer_norm_fn, rms_norm_fn
-except ImportError:
-    RMSNorm, layer_norm_fn, rms_norm_fn = None, None, None
+#try:
+#    from ops.triton.layernorm import RMSNorm, layer_norm_fn, rms_norm_fn
+#except ImportError:
+RMSNorm, layer_norm_fn, rms_norm_fn = nn.LayerNorm, None, None
     
 
     
