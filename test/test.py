@@ -16,12 +16,12 @@ model = model.cuda().half()
 def generate(prompt):
     answer = ''
     inputs = tokenizer.encode(prompt, return_tensors='pt').cuda()
-    while answer.count('\n') < 3:
+    while answer.count('\n') == 0 and len(answer) < 256:
         out_logits = model(inputs)
         last_logits = out_logits[:, -1]
         pred_vocab = last_logits.argmax(dim=-1)
         out_token = tokenizer.decode(pred_vocab)
-        print(out_token.replace('\n', '<NL>'), end='')
+        print(out_token.replace('\n', '<NL>'), end='', flush=True)
         answer += out_token
         inputs = torch.concat((inputs, pred_vocab.unsqueeze(0)), -1)
     return answer
