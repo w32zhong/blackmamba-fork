@@ -13,14 +13,11 @@ cc_flag.append("-gencode")
 cc_flag.append("arch=compute_61,code=sm_61") # support my Titan-X!
 ```
 
-### Testing `causal_conv1d`
+### Testing
 ```sh
 python test/test_causal_conv1d.py
+python test/test.py
 ```
-
-### Working env
-AWS (g4dn.xlarge/Tesla T4)
-Pytorch=1.13.1, GCC=11.3.0, Cuda=11.7, Python=3.9.16
 
 ### What tokenizer is used?
 Short answer: stick with original mamba's `EleutherAI/gpt-neox-20b` with extended padding tokens to run more efficiently for the underlying GPU GEMM kernels.
