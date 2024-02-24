@@ -1,5 +1,10 @@
 # My notes
 
+### Testing `causal_conv1d`
+```sh
+python causal_conv1d.py
+```
+
 ### Working env
 AWS (g4dn.xlarge/Tesla T4)
 Pytorch=1.13.1, GCC=11.3.0, Cuda=11.7, Python=3.9.16
