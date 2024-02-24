@@ -1,5 +1,18 @@
 # My notes
 
+### Add compute capability
+When using my Titan-X, I see runtime error:
+
+> CUDA error: no kernel image is available for execution on the device
+
+It turns out the `causal-conv1d` package does not have `nvcc -gencode` to cover my Titan-X. As a result, I forked the `causal-conv1d` package as submodule in this repo.
+
+The submodule is patched with
+```py
+cc_flag.append("-gencode")
+cc_flag.append("arch=compute_61,code=sm_61") # support my Titan-X!
+```
+
 ### Testing `causal_conv1d`
 ```sh
 python test/test_causal_conv1d.py
