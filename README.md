@@ -2,7 +2,7 @@
 
 ### Testing `causal_conv1d`
 ```sh
-python causal_conv1d.py
+python test/test_causal_conv1d.py
 ```
 
 ### Working env
