@@ -315,7 +315,8 @@ class MambaDecoder(nn.Module):
 
         if self.post_process and self.post_layer_norm:
             # Final layer norm before output.
-            self.final_layernorm = self.norm_cls(self.config.hidden_size, bias = True)
+            #self.final_layernorm = self.norm_cls(self.config.hidden_size, bias = True)
+            self.final_layernorm = self.norm_cls(self.config.hidden_size)
 
     def _get_layer(self, layer_number):
         return self.layers[layer_number]
