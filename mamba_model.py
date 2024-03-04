@@ -121,7 +121,11 @@ class MambaModel(nn.Module):
         
         if not self.post_process:
             return hidden_states
-        
+
+        ## added
+        output_layer_device = next(self.output_layer.parameters()).device
+        hidden_states = hidden_states.to(output_layer_device)
+
         logits = self.output_layer(hidden_states)
 
         return logits.contiguous()

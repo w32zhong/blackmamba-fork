@@ -329,6 +329,12 @@ class MambaDecoder(nn.Module):
             
         residual = None
         for i,layer in enumerate(self.layers):
+
+            layer_device = next(layer.parameters()).device
+            if layer_device.index != hidden_states.device.index:
+                hidden_states = hidden_states.to(layer_device)
+                residual = residual.to(layer_device)
+
             hidden_states, residual = layer(
                 hidden_states=hidden_states,
                 residual = residual,
